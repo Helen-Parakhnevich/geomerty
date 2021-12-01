@@ -7,16 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class VerifyingTest {
-
-    private TestAppender appender;
-
-    /*@Before
-    public void setUp() {
-        final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
-        final Configuration config = ctx.getConfiguration();
-        appender = (TestAppender) config.getAppenders().get("TestAppender");
-    }*/
-
     private static final Logger LOGGER = LogManager.getLogger(VerifyingTest.class);
 
     @Test
