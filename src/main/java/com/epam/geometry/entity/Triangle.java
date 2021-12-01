@@ -1,11 +1,13 @@
 package com.epam.geometry.entity;
 
-public class Triangle {
-    private Point firstVertex;
-    private Point secondVertex;
-    private Point thirdVertex;
+import java.util.Objects;
 
-    public void Triangle(Point firstVertex, Point secondVertex, Point thirdVertex) {
+public class Triangle {
+    private final Point firstVertex;
+    private final Point secondVertex;
+    private final Point thirdVertex;
+
+    public Triangle(Point firstVertex, Point secondVertex, Point thirdVertex) {
         this.firstVertex = firstVertex;
         this.secondVertex = secondVertex;
         this.thirdVertex = thirdVertex;
@@ -23,13 +25,31 @@ public class Triangle {
         return thirdVertex;
     }
 
-    public Point[] getArrayVerteces() {
-        Point[] arrayVerteces = new Point[3];
+    public Point[] getArrayVertices() {
+        Point[] arrayVertices = new Point[3];
 
-        arrayVerteces[0] = getFirstVertex();
-        arrayVerteces[1] = getSecondVertex();
-        arrayVerteces[2] = getThirdVertex();
+        arrayVertices[0] = getFirstVertex();
+        arrayVertices[1] = getSecondVertex();
+        arrayVertices[2] = getThirdVertex();
 
-        return arrayVerteces;
+        return arrayVertices;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Triangle triangle = (Triangle) obj;
+        return ((firstVertex == triangle.firstVertex || (firstVertex != null && firstVertex.equals(triangle.getFirstVertex())))
+                && (secondVertex == triangle.secondVertex || (secondVertex != null && secondVertex.equals(triangle.getSecondVertex())))
+                && (thirdVertex == triangle.thirdVertex || (thirdVertex != null && thirdVertex.equals(triangle.getThirdVertex())))
+        );
+
+    }
+
 }

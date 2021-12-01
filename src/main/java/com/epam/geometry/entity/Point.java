@@ -1,10 +1,12 @@
 package com.epam.geometry.entity;
 
-public class Point {
-    public double x;
-    public double y;
+import java.util.Objects;
 
-    public void setPoint(double x, double y) {
+public class Point {
+    private final double x;
+    private final double y;
+
+    public Point(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -16,4 +18,17 @@ public class Point {
     public double getY() {
         return y;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Point point = (Point) o;
+        return Double.compare(point.x, x) == 0 && Double.compare(point.y, y) == 0;
+    }
+
 }
