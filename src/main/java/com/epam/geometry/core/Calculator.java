@@ -5,40 +5,48 @@ import com.epam.geometry.entity.Triangle;
 
 public class Calculator {
 
-    public double calculateArea(Triangle objectTriangle) {
+    public Calculator() {
+    }
+
+    public double calculateArea(Triangle triangle) {
         double area =0;
 
-        Point[] verteces = objectTriangle.getArrayVertices();
+        Point firstVertex = triangle.getFirstVertex();
+        Point secondVertex = triangle.getSecondVertex();
+        Point thirdVertex = triangle.getThirdVertex();
 
-        area = 1/2* (Math.abs((verteces[1].getX()-verteces[0].getX()*(verteces[2].getY()-verteces[0].getY()))
-                                  -(verteces[2].getX()-verteces[0].getX())*(verteces[1].getY()-verteces[2].getY())));
+        area = (Math.abs(((secondVertex.getX()-firstVertex.getX())*(thirdVertex.getY()-firstVertex.getY()))
+                                  -((thirdVertex.getX()-firstVertex.getX())*(secondVertex.getY()-thirdVertex.getY()))))/2;
 
         return area;
     }
 
-    public double calculatePerimeter(Triangle objectTriangle) {
+    public double calculatePerimeter(Triangle triangle) {
         double perimeter =0;
 
-        double firstSideLength = calculateSideLengths(objectTriangle)[0];
-        double secondSideLength = calculateSideLengths(objectTriangle)[1];
-        double thirdSideLength = calculateSideLengths(objectTriangle)[2];
+        Double[] sideLengths = calculateSideLengths(triangle);
+        double firstSideLength  = sideLengths[0];
+        double secondSideLength = sideLengths[1];
+        double thirdSideLength  = sideLengths[2];
 
         perimeter = firstSideLength + secondSideLength + thirdSideLength;
 
         return perimeter;
     }
 
-    private Double[] calculateSideLengths(Triangle objectTriangle) {
+    private Double[] calculateSideLengths(Triangle triangle) {
         Double[] sideLengths = new Double[3];
 
-        Point[] verteces = objectTriangle.getArrayVertices();
+        Point firstVertex = triangle.getFirstVertex();
+        Point secondVertex = triangle.getSecondVertex();
+        Point thirdVertex = triangle.getThirdVertex();
 
-        sideLengths[0] = Math.sqrt(Math.abs(Math.pow(verteces[0].getX()-verteces[1].getX(),2)
-                                            + Math.pow(verteces[0].getY()-verteces[1].getY(),2)));
-        sideLengths[1] = Math.sqrt(Math.abs(Math.pow(verteces[1].getX()-verteces[2].getX(),2)
-                                            + Math.pow(verteces[1].getY()-verteces[2].getY(),2)));
-        sideLengths[2] = Math.sqrt(Math.abs(Math.pow(verteces[2].getX()-verteces[0].getX(),2)
-                                            + Math.pow(verteces[2].getY()-verteces[0].getY(),2)));
+        sideLengths[0] = Math.sqrt(Math.abs(Math.pow(firstVertex.getX()-secondVertex.getX(),2)
+                                            + Math.pow(firstVertex.getY()-secondVertex.getY(),2)));
+        sideLengths[1] = Math.sqrt(Math.abs(Math.pow(secondVertex.getX()-thirdVertex.getX(),2)
+                                            + Math.pow(secondVertex.getY()-thirdVertex.getY(),2)));
+        sideLengths[2] = Math.sqrt(Math.abs(Math.pow(thirdVertex.getX()-firstVertex.getX(),2)
+                                            + Math.pow(thirdVertex.getY()-firstVertex.getY(),2)));
         return sideLengths;
     }
 }

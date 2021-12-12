@@ -3,14 +3,15 @@ package com.epam.geometry.entity;
 import java.util.Objects;
 
 public class Triangle {
-    private final Point firstVertex;
-    private final Point secondVertex;
-    private final Point thirdVertex;
+    private Point firstVertex;
+    private Point secondVertex;
+    private Point thirdVertex;
 
     public Triangle(Point firstVertex, Point secondVertex, Point thirdVertex) {
-        this.firstVertex = firstVertex;
+        System.out.print(firstVertex.getX());
+        this.firstVertex  = firstVertex;
         this.secondVertex = secondVertex;
-        this.thirdVertex = thirdVertex;
+        this.thirdVertex  = thirdVertex;
     }
 
     public Point getFirstVertex() {
@@ -25,14 +26,16 @@ public class Triangle {
         return thirdVertex;
     }
 
-    public Point[] getArrayVertices() {
-        Point[] arrayVertices = new Point[3];
+    public void setFirstVertex(Point firstVertex) {
+        this.firstVertex = firstVertex;
+    }
 
-        arrayVertices[0] = getFirstVertex();
-        arrayVertices[1] = getSecondVertex();
-        arrayVertices[2] = getThirdVertex();
+    public void setSecondVertex(Point secondVertex) {
+        this.secondVertex = secondVertex;
+    }
 
-        return arrayVertices;
+    public void setThirdVertex(Point thirdVertex) {
+        this.thirdVertex = thirdVertex;
     }
 
     @Override
@@ -49,7 +52,21 @@ public class Triangle {
                 && (secondVertex == triangle.secondVertex || (secondVertex != null && secondVertex.equals(triangle.getSecondVertex())))
                 && (thirdVertex == triangle.thirdVertex || (thirdVertex != null && thirdVertex.equals(triangle.getThirdVertex())))
         );
-
     }
 
+    @Override
+    public int hashCode() {
+        int result = getFirstVertex().hashCode() + getSecondVertex().hashCode();
+        result = 31*result + getThirdVertex().hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Triangle{" +
+                "firstVertex=" + firstVertex +
+                ", secondVertex=" + secondVertex +
+                ", thirdVertex=" + thirdVertex +
+                '}';
+    }
 }
