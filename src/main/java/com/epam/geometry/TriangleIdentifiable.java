@@ -6,12 +6,12 @@ import com.epam.geometry.entity.Triangle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TriangleObservable extends Triangle implements Observable<TriangleObservable> {
+public class TriangleIdentifiable extends Triangle implements Observable<TriangleIdentifiable> {
 
     private final Integer id;
-    private final List<Observer<TriangleObservable>> observers = new ArrayList<>();
+    private final List<Observer<TriangleIdentifiable>> observers = new ArrayList<>();
 
-    public TriangleObservable(int id, Point firstVertex, Point secondVertex, Point thirdVertex) {
+    public TriangleIdentifiable(int id, Point firstVertex, Point secondVertex, Point thirdVertex) {
         super(firstVertex, secondVertex, thirdVertex);
         this.id = id;
     }
@@ -27,18 +27,18 @@ public class TriangleObservable extends Triangle implements Observable<TriangleO
     }
 
     @Override
-    public void attach(Observer<TriangleObservable> observer) {
+    public void attach(Observer<TriangleIdentifiable> observer) {
         observers.add(observer);
     }
 
     @Override
-    public void detach(Observer<TriangleObservable> observer) {
+    public void detach(Observer<TriangleIdentifiable> observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (Observer<TriangleObservable> observer : observers) {
+        for (Observer<TriangleIdentifiable> observer : observers) {
             observer.update(this);
         }
     }

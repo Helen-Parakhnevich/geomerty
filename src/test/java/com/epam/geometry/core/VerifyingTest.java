@@ -1,6 +1,5 @@
-package com.epam.geometry.core.core;
+package com.epam.geometry.core;
 
-import com.epam.geometry.core.Verifying;
 import com.epam.geometry.entity.Point;
 import com.epam.geometry.entity.Triangle;
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class VerifyingTest {
+
     private static final Logger LOGGER = LogManager.getLogger(VerifyingTest.class);
 
     @Test

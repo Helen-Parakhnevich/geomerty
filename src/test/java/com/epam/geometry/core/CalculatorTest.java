@@ -1,4 +1,4 @@
-package com.epam.geometry.core.core;
+package com.epam.geometry.core;
 
 import com.epam.geometry.core.Calculator;
 import com.epam.geometry.entity.Point;
@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class CalculatorTest {
+
+    private final static Double DELTA = 0.001;
 
     @Test
     public void testCalculateArea() {
@@ -18,7 +20,7 @@ public class CalculatorTest {
         double result = calculator.calculateArea(triangle);
 
         //then
-        Assert.assertEquals(4, result, 0.001);
+        Assert.assertEquals(4, result, DELTA);
     }
 
     @Test
@@ -31,6 +33,6 @@ public class CalculatorTest {
         double result = calculator.calculatePerimeter(triangle);
 
         //then
-       Assert.assertEquals(12.4451, result, 0.001);
+       Assert.assertEquals(12.4451, result, DELTA);
     }
 }

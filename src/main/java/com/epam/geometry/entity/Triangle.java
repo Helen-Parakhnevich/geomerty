@@ -8,7 +8,6 @@ public class Triangle {
     private Point thirdVertex;
 
     public Triangle(Point firstVertex, Point secondVertex, Point thirdVertex) {
-        System.out.print(firstVertex.getX());
         this.firstVertex  = firstVertex;
         this.secondVertex = secondVertex;
         this.thirdVertex  = thirdVertex;
@@ -63,7 +62,7 @@ public class Triangle {
 
     @Override
     public String toString() {
-        return "Triangle{" +
+        return getClass().getName() + "@" +
                 "firstVertex=" + firstVertex +
                 ", secondVertex=" + secondVertex +
                 ", thirdVertex=" + thirdVertex +

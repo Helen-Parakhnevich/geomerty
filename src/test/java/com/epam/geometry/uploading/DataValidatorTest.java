@@ -1,4 +1,4 @@
-package com.epam.geometry.core.uploading;
+package com.epam.geometry.uploading;
 
 import com.epam.geometry.uploading.DataValidator;
 import org.junit.Assert;
@@ -13,8 +13,10 @@ public class DataValidatorTest {
         //given
         DataValidator validator = new DataValidator();
         String line = "(1.1  ; 2.1 ) ( -1.1 ;  -2.1 )  ( 1.1;-2.1     )";
+
         //when
         boolean result = validator.isValidLine(line);
+
         //then
         Assert.assertTrue(result);
     }
@@ -24,8 +26,10 @@ public class DataValidatorTest {
         //given
         DataValidator validator = new DataValidator();
         String line = "(1.1;2.1) ( -1.1 ;  -2.1 )";
+
         //when
         boolean result = validator.isValidLine(line);
+
         //then
         Assert.assertFalse(result);
     }

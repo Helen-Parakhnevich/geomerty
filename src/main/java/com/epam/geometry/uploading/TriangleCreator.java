@@ -4,10 +4,15 @@ import com.epam.geometry.core.Verifying;
 import com.epam.geometry.entity.Point;
 import com.epam.geometry.entity.Triangle;
 import com.epam.geometry.service.HandledException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
 public class TriangleCreator {
+
+    private final Logger LOGGER = LogManager.getLogger(HandledException.class);
+
     private final static String DELEMITER_POINTS = " ";
     private final static String DELEMITER_COORDINATE = ";";
     private final static String REGEX_POINTS = "^\\(|\\)$";
@@ -18,22 +23,24 @@ public class TriangleCreator {
     }
 
 
-    public Optional<Triangle> createObject(String line) throws HandledException {
-        //Optional<Triangle> triangle = Optional.empty();
+    public Optional<Triangle> createObject(String line) {
         Point[] arrayVertices = parseLine(line);
         Point firstVertex  = arrayVertices[0];
         Point secondVertex = arrayVertices[1];
         Point thirdVertex  = arrayVertices[2];
         if (verifying.isTriangle(firstVertex, secondVertex, thirdVertex)) {
             Triangle triangle = new Triangle(firstVertex, secondVertex, thirdVertex);
-
+            LOGGER.info("Triangle created whit vertex coordinates: ("+firstVertex.getX()+";"+firstVertex.getY()+") ("
+                                                                           +secondVertex.getX()+";"+secondVertex.getY()+") ("
+                                                                           +thirdVertex.getX()+";"+thirdVertex.getY()+")");
             return Optional.of(triangle);
         }
         else {
+            LOGGER.warn("Wrong vertex coordinates for a triangle: ("+firstVertex.getX()+";"+firstVertex.getY()+") ("
+                                                                    +secondVertex.getX()+";"+secondVertex.getY()+") ("
+                                                                    +thirdVertex.getX()+";"+thirdVertex.getY()+")");
             return Optional.empty();
-            //throw new HandledException("Object not created! The line with vertices + " + line + " is not a triangle.");
         }
-
     }
 
     private Point[] parseLine(String line) {

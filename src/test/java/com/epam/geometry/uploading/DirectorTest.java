@@ -7,14 +7,8 @@ import com.epam.geometry.service.HandledException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 
-import javax.xml.validation.Validator;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +21,7 @@ public class DirectorTest {
 
     private  final static String PATH = "test";
     private  final static String VALID_COORDINATE = "(1.1;2.1) (-1.1;-2.2) (1.2;-2.1)";
+    private  final static String INVALID_COORDINATE = "(1.0;2.0) (3.0;4.0) (5.0;6.0)";
     private Director sut;
 
 //    @Mock
@@ -41,7 +36,7 @@ public class DirectorTest {
     }
 
     @Test
-    public void testReadShouldCreateWhenValid() throws HandledException {
+    public void testReadShouldCreateWhenDataValid() throws HandledException {
         //given
         DataReader reader  = Mockito.mock(DataReader.class);
         when(reader.readFile(PATH)).thenReturn(Arrays.asList(VALID_COORDINATE));
@@ -66,6 +61,29 @@ public class DirectorTest {
         Assert.assertEquals(triangles.get(0), triangle);
     }
 
+    @Test(expected = HandledException.class)
+    public void testReadShouldCreateWhenInvalidLine() throws HandledException {
+        //given
+        DataReader reader  = Mockito.mock(DataReader.class);
+        when(reader.readFile(PATH)).thenReturn(Arrays.asList(INVALID_COORDINATE));
+
+        DataValidator validator = Mockito.mock(DataValidator.class);
+        when(validator.isValidLine(anyString())).thenReturn(true);
+
+        Verifying verifying = Mockito.mock(Verifying.class);
+        when(verifying.isTriangle(any(Point.class), any(Point.class), any(Point.class))).thenReturn(false);
+
+        TriangleCreator creator = Mockito.mock(TriangleCreator.class);
+        when(creator.createObject(INVALID_COORDINATE)).thenReturn(Optional.empty());
+
+        Director director = new Director(reader, validator, creator);
+
+        //when
+        List<Triangle> triangles = director.read(PATH);
+
+        //then
+        Assert.assertEquals(0, triangles.size());
+    }
     /*@Test
     public void shouldCalculateSmth() throws HandledException {
         //GIVEN
@@ -86,9 +104,37 @@ public class DirectorTest {
 
         //WHEN
         System.out.println(sut.read("fake.file"));
-
-
     }*/
 
 
+    public static class DataReaderTest {
+
+        @Test
+        public void testReadFileWhenFileExists() throws HandledException {
+            //given
+            DataReader dataReader = new DataReader();
+            String path = "/Users/Helen/Documents/JAVA/projects/geomerty/src/test/resources/coordinates.txt";
+            List<String> dataList = Arrays.asList("(1.1;2.1) (-1.1;-2.2) (1.2;-2.1)", "(-2.5,0.0) (4.1,0.5) (1.1,5.1962)");
+
+            //when
+            List<String> result = dataReader.readFile(path);
+
+            //then
+            assertEquals(dataList, result);
+        }
+
+        @Test(expected = HandledException.class)
+        public void testReadFileWhenFileNotExists() throws HandledException {
+            //given
+            DataReader dataReader = new DataReader();
+            String path = "/Users/Helen/Documents/JAVA/projects/geomerty/src/test/resources/coord.txt";
+            List<String> dataList = Arrays.asList("(1.1;2.1) (-1.1;-2.2) (1.2;-2.1)", "(-2.5,0.0) (4.1,0.5) (1.1,5.1962)");
+
+            //when
+            List<String> result = dataReader.readFile(path);
+
+            //then
+            assertEquals(dataList, result);
+        }
+    }
 }

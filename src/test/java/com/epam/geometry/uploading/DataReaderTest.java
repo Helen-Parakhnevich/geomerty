@@ -1,4 +1,4 @@
-package com.epam.geometry.core.uploading;
+package com.epam.geometry.uploading;
 
 import com.epam.geometry.uploading.DataReader;
 import com.epam.geometry.service.HandledException;
@@ -17,8 +17,9 @@ public class DataReaderTest {
     public void testReadFileWhenFileExists() throws HandledException {
         //given
         DataReader dataReader = new DataReader();
-        String path = "/Users/Helen/Documents/JAVA/projects/geomerty/src/test/resources/coordinates.txt";
+        String path = "src/test/resources/coordinates.txt";
         List<String> dataList = Arrays.asList("(1.1;2.1) (-1.1;-2.2) (1.2;-2.1)", "(-2.5,0.0) (4.1,0.5) (1.1,5.1962)");
+
         //when
         List<String> result = dataReader.readFile(path);
 
@@ -28,11 +29,15 @@ public class DataReaderTest {
 
     @Test(expected = HandledException.class)
     public void testReadFileWhenFileNotExists() throws HandledException {
+        //given
         DataReader dataReader = new DataReader();
-        String path = "/Users/Helen/Documents/JAVA/projects/geomerty/src/test/resources/coord.txt";
+        String path = "src/test/resources/coord.txt";
         List<String> dataList = Arrays.asList("(1.1;2.1) (-1.1;-2.2) (1.2;-2.1)", "(-2.5,0.0) (4.1,0.5) (1.1,5.1962)");
+
         //when
         List<String> result = dataReader.readFile(path);
 
+        //then
+        Assert.assertEquals(dataList, result);
     }
 }

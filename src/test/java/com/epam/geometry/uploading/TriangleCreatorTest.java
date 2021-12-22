@@ -1,4 +1,4 @@
-package com.epam.geometry.core.uploading;
+package com.epam.geometry.uploading;
 
 import com.epam.geometry.core.Verifying;
 import com.epam.geometry.entity.Point;
@@ -13,17 +13,32 @@ import java.util.Optional;
 
 public class TriangleCreatorTest {
 
+    private final static Double DELTA = 0.001;
+
     @Test
-    public void testCreateObject() throws HandledException {
+    public void testCreateObjectWhenValidData() throws HandledException {
         //given
         TriangleCreator triangleCreator = new TriangleCreator(new Verifying());
         String line = "(1.1;2.1) (-1.1;-2.2) (1.2;-2.1)";
-        Optional<Triangle> triangle = Optional.of(new Triangle(new Point(-2.5,0.0), new Point(4.1,0.5), new Point(1.1,5.1962)));
+        Optional<Triangle> triangle = Optional.of(new Triangle(new Point(1.1,2.1), new Point(-1.1,-2.2), new Point(1.2,-2.1)));
 
         //when
         Optional<Triangle> result = triangleCreator.createObject(line);
 
         //then
         Assert.assertEquals(triangle, result);
+    }
+
+    @Test
+    public void testCreateObjectWhenInvalidData() throws HandledException {
+        //given
+        TriangleCreator triangleCreator = new TriangleCreator(new Verifying());
+        String line = "(1.0;2.0) (3.0;4.0) (5.0;6.0)";
+
+        //when
+        Optional<Triangle> result = triangleCreator.createObject(line);
+
+        //then
+        Assert.assertEquals(Optional.empty(), result);
     }
 }
