@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class TriangleIdentifiableTest {
 
-    private static Double DELTA = 0.001;
+    private static double DELTA = 0.001;
 
     @Test
     public void testObservers() {
@@ -25,8 +25,8 @@ public class TriangleIdentifiableTest {
         //then
         Map<Integer, Parameters> mapTriangles = store.getParameters();
         Parameters parameters = mapTriangles.get(1);
-        Double newArea = parameters.getArea();
-        Double newPerimeter = parameters.getPerimeter();
+        double newArea = parameters.getArea();
+        double newPerimeter = parameters.getPerimeter();
 
         Assert.assertEquals(5, newArea, DELTA);
         Assert.assertEquals(12.3851, newPerimeter, DELTA);

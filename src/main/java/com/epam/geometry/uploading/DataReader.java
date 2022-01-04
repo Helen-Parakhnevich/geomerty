@@ -1,6 +1,7 @@
 package com.epam.geometry.uploading;
 
-import com.epam.geometry.service.HandledException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,7 +11,9 @@ import static java.util.Objects.nonNull;
 
 public class DataReader {
 
-    public List<String> readFile(String path) throws HandledException {
+    private final Logger LOGGER = LogManager.getLogger(DataReader.class);
+
+    public List<String> readFile(String path) throws IOException {
         List<String> dataList = new ArrayList<String>();
         BufferedReader bufferedReader = null;
 
@@ -18,19 +21,16 @@ public class DataReader {
             FileReader fileReader = new FileReader(path);
             bufferedReader = new BufferedReader(fileReader);
             String line;
-            while ((line = bufferedReader.readLine())!=null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 dataList.add(line);
             }
         } catch (IOException e) {
-            throw new HandledException(e.getMessage(), e);
+            LOGGER.error(e);
+            throw e;
         } finally {
-            try {
                 if (nonNull(bufferedReader)) {
                     bufferedReader.close();
                 }
-            } catch (IOException e) {
-                throw new HandledException(e.getMessage(), e);
-            }
         }
 
         return dataList;

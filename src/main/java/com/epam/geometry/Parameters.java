@@ -2,19 +2,19 @@ package com.epam.geometry;
 
 public class Parameters {
 
-    private final double Area;
-    private final double Perimeter;
+    private final double area;
+    private final double perimeter;
 
     public Parameters(double area, double perimeter) {
-        Area = area;
-        Perimeter = perimeter;
+        this.area = area;
+        this.perimeter = perimeter;
     }
 
     public double getArea() {
-        return Area;
+        return area;
     }
 
     public double getPerimeter() {
-        return Perimeter;
+        return perimeter;
     }
 }

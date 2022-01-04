@@ -8,10 +8,11 @@ import javax.xml.validation.Validator;
 
 public class DataValidatorTest {
 
+    private final static DataValidator validator = new DataValidator();
+
     @Test
     public void testIsValidLineWhenSpecifiedFormatString() {
         //given
-        DataValidator validator = new DataValidator();
         String line = "(1.1  ; 2.1 ) ( -1.1 ;  -2.1 )  ( 1.1;-2.1     )";
 
         //when
@@ -24,7 +25,6 @@ public class DataValidatorTest {
     @Test
     public void testIsValidLineWhenNotSpecifiedFormatString() {
         //given
-        DataValidator validator = new DataValidator();
         String line = "(1.1;2.1) ( -1.1 ;  -2.1 )";
 
         //when

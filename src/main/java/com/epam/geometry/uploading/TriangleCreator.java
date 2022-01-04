@@ -1,6 +1,6 @@
 package com.epam.geometry.uploading;
 
-import com.epam.geometry.core.Verifying;
+import com.epam.geometry.core.TriangleVerifier;
 import com.epam.geometry.entity.Point;
 import com.epam.geometry.entity.Triangle;
 import com.epam.geometry.service.HandledException;
@@ -11,14 +11,14 @@ import java.util.Optional;
 
 public class TriangleCreator {
 
-    private final Logger LOGGER = LogManager.getLogger(HandledException.class);
+    private final Logger LOGGER = LogManager.getLogger(TriangleCreator.class);
 
     private final static String DELEMITER_POINTS = " ";
     private final static String DELEMITER_COORDINATE = ";";
     private final static String REGEX_POINTS = "^\\(|\\)$";
-    private final Verifying verifying;
+    private final TriangleVerifier verifying;
 
-    public TriangleCreator(Verifying verifying) {
+    public TriangleCreator(TriangleVerifier verifying) {
         this.verifying = verifying;
     }
 

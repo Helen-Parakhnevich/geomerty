@@ -15,10 +15,14 @@ public class TriangleStore implements Observer<TriangleIdentifiable>{
 
     private final Map<Integer, Parameters> parameters = new HashMap<>();
 
-    private final Calculator calculator = new Calculator();
+    private final Calculator calculator;
 
     public Map<Integer, Parameters> getParameters() {
         return parameters;
+    }
+
+    private TriangleStore(Calculator calculator) {
+        this.calculator = calculator;
     }
 
     public void update(TriangleIdentifiable triangle) {
@@ -28,9 +32,17 @@ public class TriangleStore implements Observer<TriangleIdentifiable>{
         LOGGER.warn("Triangle has been changed! new area = " + area + "; new perimeter = " + perimeter);
     }
 
+    // only for testing purposes
+    public static TriangleStore getInstance(Calculator calculator) {
+        if (instance == null) {
+            instance = new TriangleStore(calculator);
+        }
+        return instance;
+    }
+
     public static TriangleStore getInstance() {
         if (instance == null) {
-            instance = new TriangleStore();
+            return TriangleStore.getInstance(new Calculator());
         }
         return instance;
     }

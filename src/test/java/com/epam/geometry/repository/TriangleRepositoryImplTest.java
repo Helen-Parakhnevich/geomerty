@@ -1,15 +1,10 @@
 package com.epam.geometry.repository;
 
-import com.epam.geometry.TriangleStore;
-import com.epam.geometry.core.Calculator;
 import com.epam.geometry.entity.Point;
 import com.epam.geometry.entity.Triangle;
-import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Map;
-
-public class TriangleRepositoryImpl {
+public class TriangleRepositoryImplTest {
 
     private static final Triangle FIRST_TRIANGLE = new Triangle(new Point(1.1,2.1),
                                                                new Point(-1.1,-2.2),
@@ -25,7 +20,7 @@ public class TriangleRepositoryImpl {
         TriangleRepositoryImpl repository = new TriangleRepositoryImpl();
 
         //when
-        
+
         //then
 
     }
